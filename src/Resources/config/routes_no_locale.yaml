@@ -4,7 +4,3 @@
 
 setono_sylius_quick_order_shop:
     resource: "@SetonoSyliusQuickOrderPlugin/Resources/config/routes/shop.yaml"
-
-setono_sylius_quick_order_admin:
-    resource: "@SetonoSyliusQuickOrderPlugin/Resources/config/routes/admin.yaml"
-    prefix: /admin

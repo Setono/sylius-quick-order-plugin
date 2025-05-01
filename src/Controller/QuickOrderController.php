@@ -63,7 +63,7 @@ final class QuickOrderController extends AbstractController
 
         return $this->render('@SetonoSyliusQuickOrderPlugin/shop/quick_order/index.html.twig', [
             'form' => $form->createView(),
-            'pasteForm' => $this->createForm(PasteType::class)->createView()
+            'pasteForm' => $this->createForm(PasteType::class)->createView(),
         ]);
     }
 

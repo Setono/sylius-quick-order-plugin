@@ -10,12 +10,15 @@ use Setono\SyliusQuickOrderPlugin\Controller\Command\QuickOrder;
 use Setono\SyliusQuickOrderPlugin\Controller\Command\QuickOrderItem;
 use Setono\SyliusQuickOrderPlugin\Form\Type\QuickOrderType;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
+use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Modifier\OrderModifierInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Webmozart\Assert\Assert;
 
 final class QuickOrderController extends AbstractController
 {
@@ -43,8 +46,7 @@ final class QuickOrderController extends AbstractController
             $cart = $this->cartContext->getCart();
 
             foreach ($quickOrder->getItems() as $item) {
-                $cartItem = $this->cartItemFactory->createNew();
-                $cartItem->setVariant($item->getVariant());
+                $cartItem = $this->createCartItem($item->getVariant());
 
                 $this->orderItemQuantityModifier->modify($cartItem, $item->getQuantity());
                 $this->orderModifier->addToOrder($cart, $cartItem);
@@ -61,5 +63,17 @@ final class QuickOrderController extends AbstractController
         return $this->render('@SetonoSyliusQuickOrderPlugin/shop/quick_order/index.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    private function createCartItem(?ProductVariantInterface $productVariant): OrderItemInterface
+    {
+        Assert::notNull($productVariant);
+
+        $cartItem = $this->cartItemFactory->createNew();
+        Assert::isInstanceOf($cartItem, OrderItemInterface::class);
+
+        $cartItem->setVariant($productVariant);
+
+        return $cartItem;
     }
 }

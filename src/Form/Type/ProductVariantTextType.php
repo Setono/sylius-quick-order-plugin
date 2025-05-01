@@ -18,6 +18,7 @@ final class ProductVariantTextType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @psalm-suppress InvalidArgument */
         $builder->addModelTransformer(new ResourceToIdentifierTransformer($this->productVariantRepository, 'code'));
     }
 

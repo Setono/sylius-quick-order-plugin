@@ -52,6 +52,10 @@ final class QuickOrderController extends AbstractController
 
             $this->getManager($cart)->persist($cart);
             $this->getManager($cart)->flush();
+
+            $this->addFlash('success', 'setono_sylius_quick_order.products_added_to_cart');
+
+            return $this->redirectToRoute('setono_sylius_quick_order_shop_quick_order_index');
         }
 
         return $this->render('@SetonoSyliusQuickOrderPlugin/shop/quick_order/index.html.twig', [

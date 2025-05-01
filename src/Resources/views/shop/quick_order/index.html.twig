@@ -220,13 +220,22 @@
                      * @param {number} quantity
                      */
                     addItem(identifier, quantity = 1) {
+                        console.error('You must implement the PasteForm::addItem() method');
                     },
                 }, options);
 
                 this.#form.addEventListener('submit', (e) => {
                     e.preventDefault();
 
-                    const data = e.target.querySelector('textarea').value;
+                    let data = e.target.querySelector('textarea')?.value;
+                    if(null === data) {
+                        return;
+                    }
+
+                    data = data.trim();
+                    if(data.length === 0) {
+                        return;
+                    }
 
                     const rows = data.split(/[\r\n]+/);
                     rows.forEach((row) => {

@@ -3,7 +3,7 @@ setono_sylius_quick_order:
         paste: Paste
         paste_placeholder: |
             Here you can paste SKUs (and optionally quantities) directly from a document (e.g. Excel or Google Spreadsheets).
-            Rows are separated by a newline and SKUs and quantities are separated by a space, comma, tab or semicolon. Here are a few examples:
+            Rows are separated by a newline and SKUs and quantities are separated by a space, comma, tab, or semicolon. Here are a few examples:
             
             Only SKUs:
             

@@ -8,6 +8,8 @@
 
 Allow your customers to add products by SKU.
 
+![Qiuck order form](docs/images/quick-order.png)
+
 [ico-version]: https://poser.pugx.org/setono/sylius-quick-order-plugin/v/stable
 [ico-license]: https://poser.pugx.org/setono/sylius-quick-order-plugin/license
 [ico-github-actions]: https://github.com/Setono/sylius-quick-order-plugin/actions/workflows/build.yaml/badge.svg

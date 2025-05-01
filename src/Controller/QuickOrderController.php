@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Setono\Doctrine\ORMTrait;
 use Setono\SyliusQuickOrderPlugin\Controller\Command\QuickOrder;
 use Setono\SyliusQuickOrderPlugin\Controller\Command\QuickOrderItem;
+use Setono\SyliusQuickOrderPlugin\Form\Type\PasteType;
 use Setono\SyliusQuickOrderPlugin\Form\Type\QuickOrderType;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
@@ -62,6 +63,7 @@ final class QuickOrderController extends AbstractController
 
         return $this->render('@SetonoSyliusQuickOrderPlugin/shop/quick_order/index.html.twig', [
             'form' => $form->createView(),
+            'pasteForm' => $this->createForm(PasteType::class)->createView()
         ]);
     }
 

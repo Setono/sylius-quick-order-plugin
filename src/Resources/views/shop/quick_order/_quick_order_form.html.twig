@@ -1,0 +1,16 @@
+{{ form_start(form, {'action': path('setono_sylius_quick_order_shop_quick_order_index'), 'attr': {'class': 'ssqo-quick-order-form ui form'}}) }}
+    <table class="ui celled table" data-index="{{ form.items|length > 0 ? form.items|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.items.vars.prototype)|e('html_attr') }}">
+        <thead>
+            <tr>
+                <th>{{ 'sylius.ui.quantity'|trans }}</th>
+                <th>{{ 'sylius.ui.product'|trans }}</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ include('@SetonoSyliusQuickOrderPlugin/shop/quick_order/_items.html.twig') }}
+        </tbody>
+    </table>
+
+    <button type="submit" class="ui huge primary icon labeled button"><i class="cart icon"></i> {{ 'sylius.ui.add_to_cart'|trans }}</button>
+{{ form_end(form) }}

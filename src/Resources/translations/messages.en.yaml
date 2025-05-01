@@ -1,6 +1,11 @@
 setono_sylius_quick_order:
     ui:
-        paste: Paste
+        add_line: Add line
+        add_to_quick_order: Add to quick order
+        paste_from_document: Paste from a document
+        paste_from_document_introduction: |
+            If you've prepared your order in an external document, simply paste it into the field below and click "Add to Quick Order."
+            We'll automatically parse your input and add the items to your quick order list.
         paste_placeholder: |
             Here you can paste SKUs (and optionally quantities) directly from a document (e.g. Excel or Google Spreadsheets).
             Rows are separated by a newline and SKUs and quantities are separated by a space, comma, tab, or semicolon. Here are a few examples:

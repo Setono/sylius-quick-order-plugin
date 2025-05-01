@@ -17,9 +17,13 @@ final class QuickOrderItemType extends AbstractType
         $builder
             ->add('quantity', IntegerType::class, [
                 'label' => 'sylius.ui.qty',
+                'attr' => [
+                    'min' => 1,
+                ],
             ])
             ->add('variant', ProductVariantTextType::class, [
                 'label' => 'sylius.ui.variant',
+                'required' => false,
             ])
         ;
     }

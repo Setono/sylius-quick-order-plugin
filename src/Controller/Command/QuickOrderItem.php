@@ -8,16 +8,16 @@ use Sylius\Component\Core\Model\ProductVariantInterface;
 
 final class QuickOrderItem
 {
-    private ?int $quantity = null;
+    private int $quantity = 1;
 
     private ?ProductVariantInterface $variant = null;
 
-    public function getQuantity(): ?int
+    public function getQuantity(): int
     {
         return $this->quantity;
     }
 
-    public function setQuantity(?int $quantity): void
+    public function setQuantity(int $quantity): void
     {
         $this->quantity = $quantity;
     }

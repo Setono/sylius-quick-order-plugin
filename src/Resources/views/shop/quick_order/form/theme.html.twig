@@ -1,0 +1,7 @@
+{% block setono_sylius_quick_order__quick_order_item_widget %}
+    <tr>
+        <td>{{ form_widget(form.quantity) }}</td>
+        <td>{{ form_widget(form.variant) }}</td>
+        <td style="text-align: right"><button type="button" class="ssqo-button-remove ui basic red button"><i class="close icon"></i> {{ 'setono_sylius_quick_order.ui.remove'|trans }}</button></td>
+    </tr>
+{% endblock %}

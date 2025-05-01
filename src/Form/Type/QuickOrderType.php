@@ -31,4 +31,9 @@ final class QuickOrderType extends AbstractType
             'data_class' => QuickOrder::class,
         ]);
     }
+
+    public function getBlockPrefix(): string
+    {
+        return 'setono_sylius_quick_order__quick_order';
+    }
 }

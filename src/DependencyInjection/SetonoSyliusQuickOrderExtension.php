@@ -7,9 +7,10 @@ namespace Setono\SyliusQuickOrderPlugin\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-final class SetonoSyliusQuickOrderExtension extends Extension
+final class SetonoSyliusQuickOrderExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -24,5 +25,14 @@ final class SetonoSyliusQuickOrderExtension extends Extension
         $container->setParameter('setono_sylius_quick_order.option', $config['option']);
 
         $loader->load('services.xml');
+    }
+
+    public function prepend(ContainerBuilder $container): void
+    {
+        $container->prependExtensionConfig('twig', [
+            'form_themes' => [
+                '@SetonoSyliusQuickOrderPlugin/shop/quick_order/form/theme.html.twig',
+            ],
+        ]);
     }
 }

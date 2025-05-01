@@ -54,7 +54,7 @@ final class QuickOrderController extends AbstractController
             $this->getManager($cart)->flush();
         }
 
-        return $this->render('@SetonoSyliusQuickOrderPlugin/shop/quick-order/index.html.twig', [
+        return $this->render('@SetonoSyliusQuickOrderPlugin/shop/quick_order/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }

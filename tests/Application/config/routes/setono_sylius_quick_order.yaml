@@ -1,0 +1,2 @@
+setono_sylius_quick_order:
+    resource: "@SetonoSyliusQuickOrderPlugin/Resources/config/routes.yaml"

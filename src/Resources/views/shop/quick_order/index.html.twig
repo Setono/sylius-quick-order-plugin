@@ -1,0 +1,253 @@
+{% extends '@SyliusShop/layout.html.twig' %}
+
+{% form_theme form '@SyliusShop/Form/theme.html.twig' %}
+
+{% block content %}
+    <h1 class="ui monster section dividing header" style="position: relative; max-width: 800px; margin: 50px auto 120px auto; text-align: center; border: 0">
+        {{ 'setono_sylius_quick_order.ui.quick_order'|trans }}
+        <div class="sub header" style="margin-top: 20px; line-height: 1.7">{{ 'setono_sylius_quick_order.ui.quick_order_introduction'|trans }}</div>
+    </h1>
+
+    <div style="display: flex; justify-content: right; margin-bottom: 20px;">
+        <button type="submit" class="ssqo-button-add ui primary icon button" style="margin: 0"><i class="plus icon"></i> {{ 'sylius.ui.add'|trans }}</button>
+    </div>
+    {{ form_start(form, {'action': path('setono_sylius_quick_order_shop_quick_order_index'), 'attr': {'class': 'ssqo-quick-order-form ui form', 'novalidate': 'novalidate'}}) }}
+        <table class="ui celled table" data-index="{{ form.items|length > 0 ? form.items|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.items.vars.prototype)|e('html_attr') }}">
+            <thead>
+                <tr>
+                    <th>{{ 'sylius.ui.quantity'|trans }}</th>
+                    <th>{{ 'sylius.ui.product'|trans }}</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in form.items %}
+                    {{ form_widget(item) }}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <button type="submit" class="ui huge primary icon labeled button"><i class="cart icon"></i> {{ 'sylius.ui.add_to_cart'|trans }}</button>
+    {{ form_end(form) }}
+
+    <div class="ssqo-paste">
+        <form class="ui form">
+            <textarea rows="20" placeholder="{{ 'setono_sylius_quick_order.ui.paste_placeholder'|trans }}"></textarea>
+            <button type="submit" class="ui huge primary button">{{ 'setono_sylius_quick_order.ui.paste'|trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        class QuickOrderForm {
+            /**
+             * @type {HTMLFormElement}
+             */
+            #form;
+
+            /**
+             * @type {Object}
+             */
+            #options;
+
+            /**
+             * @param {HTMLFormElement} form
+             * @param {Object} options
+             */
+            constructor(form, options = {}) {
+                this.#form = form;
+
+                this.#options = Object.assign({
+                    className: {
+                        removeButton: 'ssqo-button-remove',
+                    },
+                    selector: {
+                        addButton: '.ssqo-button-add',
+                    },
+                    /**
+                     * @param {HTMLFormElement} form
+                     * @returns {number}
+                     */
+                    getIndex(form) {
+                        return parseInt(form.querySelector('table').dataset.index);
+                    },
+                    /**
+                     * @param {HTMLFormElement} form
+                     * @param {number} index
+                     */
+                    updateIndex(form, index) {
+                        form.querySelector('table').dataset.index = index;
+                    },
+                    /**
+                     * @param {HTMLFormElement} form
+                     * @returns {string}
+                     */
+                    getPrototype(form) {
+                        return form.querySelector('table').dataset.prototype;
+                    },
+                    /**
+                     * @param {HTMLFormElement} form
+                     * @param {HTMLTemplateElement} item
+                     */
+                    insertItem(form, item) {
+                        form.querySelector('tbody').append(item.content);
+                    },
+                    /**
+                     * @param {Element} button The button that was clicked
+                     */
+                    removeItem(button) {
+                        button.closest('tr')?.remove();
+                    },
+                    /**
+                     * Returns the number of items in the form
+                     *
+                     * @param {HTMLFormElement} form
+                     * @return {number}
+                     */
+                    count(form) {
+                        return parseInt(form.querySelector('table tbody').querySelectorAll('tr').length);
+                    }
+                }, options);
+
+                document.querySelector(this.#options.selector.addButton).addEventListener('click', () => {
+                    this.addItem();
+                });
+
+                this.#form.addEventListener('click', (e) => {
+                    /** @type {Element} */
+                    const target = e.target;
+                    if(!target instanceof Element || !target.classList.contains(this.#options.className.removeButton)) {
+                        return;
+                    }
+
+                    this.#removeItem(target);
+                });
+
+                this.#form.addEventListener('submit', () => {
+                    this.#form.querySelectorAll('table tbody tr').forEach((item) => {
+                        const identifier = item.querySelector('input[type="text"]').value.trim();
+
+                        if(identifier.length === 0) {
+                            item.remove();
+                        }
+                    });
+                });
+
+                // If the form is initialized with zero items, we will add one
+                if(this.#count() === 0) {
+                    this.addItem();
+                }
+            }
+
+            /**
+             * @param {string|null} identifier
+             * @param {number} quantity
+             */
+            addItem(identifier = null, quantity = 1) {
+                const index = this.#getIndex();
+                const prototype = this.#getPrototype();
+
+                /**
+                 * @type {HTMLTemplateElement}
+                 */
+                const template = document.createElement('template');
+                template.innerHTML = prototype.replace(/__name__/g, index);
+
+                template.content.querySelector('input[type="number"]').value = quantity;
+                if(null !== identifier) {
+                    template.content.querySelector('input[type="text"]').value = identifier;
+                }
+
+                this.#incrementIndex();
+
+                this.#options.insertItem(this.#form, template);
+            }
+
+            /**
+             * @param {Element} button The button that was clicked
+             */
+            #removeItem(button) {
+                this.#options.removeItem(button);
+
+                if(this.#count() === 0) {
+                    this.addItem();
+                }
+            }
+
+            #getIndex() {
+                return this.#options.getIndex(this.#form);
+            }
+
+            #incrementIndex() {
+                const index = this.#getIndex();
+                this.#options.updateIndex(this.#form, index + 1);
+            }
+
+            #getPrototype() {
+                return this.#options.getPrototype(this.#form);
+            }
+
+            #count() {
+                return this.#options.count(this.#form);
+            }
+        }
+
+        const form = new QuickOrderForm(document.querySelector('.ssqo-quick-order-form'));
+
+        class PasteForm {
+            /**
+             * @type {HTMLFormElement}
+             */
+            #form;
+
+            /**
+             * @type {Object}
+             */
+            #options;
+
+            /**
+             * @param {HTMLFormElement} form
+             * @param {Object} options
+             */
+            constructor(form, options = {}) {
+                this.#form = form;
+                this.#options = Object.assign({
+                    /**
+                     * @param {string} identifier
+                     * @param {number} quantity
+                     */
+                    addItem(identifier, quantity = 1) {
+                    },
+                }, options);
+
+                this.#form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const data = e.target.querySelector('textarea').value;
+
+                    const rows = data.split(/[\r\n]+/);
+                    rows.forEach((row) => {
+                        row = row.trim();
+
+                        if(row.length === 0 || row.startsWith('#')) {
+                            return;
+                        }
+
+                        const columns = row.split(/[,;\t ]+/);
+
+                        this.#options.addItem(columns[0], columns[1] ?? 1);
+                    });
+                });
+            }
+        }
+
+        new PasteForm(document.querySelector('.ssqo-paste form'), {
+            addItem(identifier, quantity = 1) {
+                form.addItem(identifier, quantity);
+            },
+        });
+    </script>
+{% endblock %}

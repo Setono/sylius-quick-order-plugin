@@ -45,10 +45,10 @@ Go to https://your-store.com/en_US/quick-order
 [ico-version]: https://poser.pugx.org/setono/sylius-quick-order-plugin/v/stable
 [ico-license]: https://poser.pugx.org/setono/sylius-quick-order-plugin/license
 [ico-github-actions]: https://github.com/Setono/sylius-quick-order-plugin/actions/workflows/build.yaml/badge.svg
-[ico-code-coverage]: https://codecov.io/gh/Setono/SyliusQuickOrderPlugin/branch/master/graph/badge.svg
-[ico-infection]: https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FSetono%2FSyliusPluginSkeleton%2Fmaster
+[ico-code-coverage]: https://codecov.io/gh/Setono/sylius-quick-order-plugin/branch/master/graph/badge.svg
+[ico-infection]: https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FSetono%2Fsylius-quick-order-plugin%2Fmaster
 
 [link-packagist]: https://packagist.org/packages/setono/sylius-quick-order-plugin
-[link-github-actions]: https://github.com/Setono/SyliusQuickOrderPlugin/actions
-[link-code-coverage]: https://codecov.io/gh/Setono/SyliusQuickOrderPlugin
-[link-infection]: https://dashboard.stryker-mutator.io/reports/github.com/Setono/SyliusQuickOrderPlugin/master
+[link-github-actions]: https://github.com/Setono/sylius-quick-order-plugin/actions
+[link-code-coverage]: https://codecov.io/gh/Setono/sylius-quick-order-plugin
+[link-infection]: https://dashboard.stryker-mutator.io/reports/github.com/Setono/sylius-quick-order-plugin/master

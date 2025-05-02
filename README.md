@@ -10,6 +10,34 @@ Allow your customers to add products by SKU.
 
 ![Qiuck order form](docs/images/quick-order.png)
 
+## Installation
+
+```shell
+composer require setono/sylius-quick-order-plugin
+```
+
+### Import routing
+
+```yaml
+# config/routes/setono_sylius_quick_order.yaml
+setono_sylius_meilisearch:
+    resource: "@SetonoSyliusQuickOrderPlugin/Resources/config/routes.yaml"
+```
+
+or if your app doesn't use locales:
+
+```yaml
+# config/routes/setono_sylius_meilisearch.yaml
+setono_sylius_meilisearch:
+    resource: "@SetonoSyliusQuickOrderPlugin/Resources/config/routes_no_locale.yaml"
+```
+
+### Install assets
+
+```shell
+php bin/console assets:install
+```
+
 [ico-version]: https://poser.pugx.org/setono/sylius-quick-order-plugin/v/stable
 [ico-license]: https://poser.pugx.org/setono/sylius-quick-order-plugin/license
 [ico-github-actions]: https://github.com/Setono/sylius-quick-order-plugin/actions/workflows/build.yaml/badge.svg

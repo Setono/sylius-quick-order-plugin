@@ -38,6 +38,10 @@ setono_sylius_meilisearch:
 php bin/console assets:install
 ```
 
+## Usage
+
+Go to https://your-store.com/en_US/quick-order
+
 [ico-version]: https://poser.pugx.org/setono/sylius-quick-order-plugin/v/stable
 [ico-license]: https://poser.pugx.org/setono/sylius-quick-order-plugin/license
 [ico-github-actions]: https://github.com/Setono/sylius-quick-order-plugin/actions/workflows/build.yaml/badge.svg

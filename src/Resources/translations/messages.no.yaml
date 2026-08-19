@@ -1,0 +1,26 @@
+setono_sylius_quick_order:
+    ui:
+        add_line: Legg til linje
+        add_to_quick_order: Legg til i hurtigbestilling
+        paste_from_document: Lim inn fra et dokument
+        paste_from_document_introduction: |
+            Hvis du har forberedt bestillingen i et eksternt dokument, kan du lime den inn i feltet nedenfor og klikke «Legg til i hurtigbestilling».
+            Vi tolker innholdet automatisk og legger varene til i hurtigbestillingslisten din.
+        paste_placeholder: |
+            Her kan du lime inn varenumre (og eventuelt antall) direkte fra et dokument (f.eks. Excel eller Google Regneark).
+            Rader skilles med linjeskift, og varenummer og antall skilles med mellomrom, komma, tabulator eller semikolon. Noen eksempler:
+
+            Bare varenumre:
+
+            SKU1
+            SKU2
+            SKU3
+
+            Varenumre og antall på samme rad:
+
+            SKU1,12
+            SKU2
+            SKU3,3
+        quick_order: Hurtigbestilling
+        quick_order_introduction: Legg til flere produkter ved å lime inn varenumre og velge antall. Hvis et produkt ikke er tilgjengelig, blir ingen av dem lagt i handlekurven.
+        remove: Fjern
